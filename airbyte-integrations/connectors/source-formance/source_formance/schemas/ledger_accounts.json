@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "required": [
+    "address"
+  ],
+  "properties": {
+    "address": {
+      "type": "string",
+      "example": "users:001"
+    },
+    "type": {
+      "type": "string",
+      "example": "virtual"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {},
+      "example": {
+        "admin": true,
+        "a": {
+          "nested": {
+            "key": "value"
+          }
+        }
+      }
+    }
+  }
+}

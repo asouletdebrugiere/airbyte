@@ -1,0 +1,52 @@
+{
+  "streams": [
+    {
+      "stream": {
+        "name": "ledger_transactions",
+        "json_schema": {},
+        "supported_sync_modes": [
+          "full_refresh",
+          "incremental"
+        ]
+      },
+      "sync_mode": "incremental",
+      "destination_sync_mode": "overwrite"
+    },
+    {
+      "stream": {
+        "name": "ledger_accounts",
+        "json_schema": {},
+        "supported_sync_modes": [
+          "full_refresh",
+          "incremental"
+        ]
+      },
+      "sync_mode": "incremental",
+      "destination_sync_mode": "overwrite"
+    },
+    {
+      "stream": {
+        "name": "ledger_balances",
+        "json_schema": {},
+        "supported_sync_modes": [
+          "full_refresh",
+          "incremental"
+        ]
+      },
+      "sync_mode": "incremental",
+      "destination_sync_mode": "overwrite"
+    },
+    {
+      "stream": {
+        "name": "payment_payments",
+        "json_schema": {},
+        "supported_sync_modes": [
+          "full_refresh",
+          "incremental"
+        ]
+      },
+      "sync_mode": "incremental",
+      "destination_sync_mode": "overwrite"
+    }
+  ]
+}

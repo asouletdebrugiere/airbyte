@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "patternProperties": {
+      ".*": {
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "example": {
+          "USD": 100,
+          "EUR": 12
+        }
+      }
+    },
+    "example": {
+      "account1": {
+        "USD": 100,
+        "EUR": 23
+      },
+      "account2": {
+        "CAD": 20,
+        "JPY": 21
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "type": "object",
+  "required": [
+    "id",
+    "reference",
+    "accountID",
+    "type",
+    "provider",
+    "status",
+    "initialAmount",
+    "scheme",
+    "asset",
+    "createdAt",
+    "raw",
+    "adjustments",
+    "metadata"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "XXX"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "accountID": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "PAY-IN",
+        "PAYOUT",
+        "TRANSFER",
+        "OTHER"
+      ]
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "STRIPE",
+        "DUMMY-PAY",
+        "WISE",
+        "MODULR",
+        "CURRENCY-CLOUD",
+        "BANKING-CIRCLE"
+      ],
+      "$schema": "http://json-schema.org/schema#"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "ACTIVE",
+        "TERMINATED",
+        "FAILED",
+        "SUCCEEDED",
+        "CANCELLED"
+      ],
+      "$schema": "http://json-schema.org/schema#"
+    },
+    "initialAmount": {
+      "type": "integer",
+      "format": "int64",
+      "minimum": 0,
+      "example": 100
+    },
+    "scheme": {
+      "type": "string",
+      "enum": [
+        "visa",
+        "mastercard",
+        "amex",
+        "diners",
+        "discover",
+        "jcb",
+        "unionpay",
+        "sepa debit",
+        "sepa credit",
+        "sepa",
+        "apple pay",
+        "google pay",
+        "a2a",
+        "ach debit",
+        "ach",
+        "rtp",
+        "unknown",
+        "other"
+      ]
+    },
+    "asset": {
+      "type": "string",
+      "example": "USD"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "raw": {
+      "type": "object",
+      "nullable": true
+    },
+    "adjustments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "status",
+          "amount",
+          "date",
+          "raw",
+          "absolute"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "ACTIVE",
+              "TERMINATED",
+              "FAILED",
+              "SUCCEEDED",
+              "CANCELLED"
+            ],
+            "$schema": "http://json-schema.org/schema#"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0,
+            "example": 100
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "raw": {
+            "type": "object"
+          },
+          "absolute": {
+            "type": "boolean"
+          }
+        },
+        "$schema": "http://json-schema.org/schema#"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "nullable": true,
+      "$schema": "http://json-schema.org/schema#"
+    }
+  },
+  "$schema": "http://json-schema.org/schema#"
+}

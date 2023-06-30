@@ -1,0 +1,93 @@
+version: 0.40.5
+
+definitions:
+  schema_loader:
+    type: JsonFileSchemaLoader
+    file_path: "./source_formance/schemas/{{ parameters['name'] }}.json"
+  selector:
+    type: RecordSelector
+    extractor:
+      type: DpathExtractor
+      field_path:
+        - cursor
+        - data
+  requester:
+    type: HttpRequester
+    url_base: "{{ config['stack_url'] }}"
+    http_method: "GET"
+    request_parameters: {}
+    request_headers: {}
+    authenticator:
+      type: OAuthAuthenticator
+      client_id: "{{ config['client_id'] }}"
+      grant_type: client_credentials
+      client_secret: "{{ config['client_secret'] }}"
+      token_refresh_endpoint: "{{ config['stack_url'] }}/api/auth/oauth/token?grant_type=client_credentials&client_id={{ config['client_id'] }}&client_secret={{ config['client_secret'] }}"
+  retriever:
+    type: SimpleRetriever
+    record_selector:
+      $ref: "#/definitions/selector"
+    paginator:
+      type: DefaultPaginator
+      page_token_option:
+        type: RequestOption
+        inject_into: request_parameter
+        field_name: cursor
+      pagination_strategy:
+        type: CursorPagination
+        cursor_value: '{{ response.get("cursor", {}).get("next", {}) }}'
+        stop_condition: '{{ not response.get("cursor", {}).get("next", {}) }}'
+    requester:
+      $ref: "#/definitions/requester"
+
+streams:
+  - type: DeclarativeStream
+    $parameters:
+      name: "ledger_transactions"
+    primary_key: []
+    schema_loader:
+      $ref: "#/definitions/schema_loader"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: /api/ledger/{{ config['ledger'] }}/transactions
+  - type: DeclarativeStream
+    $parameters:
+      name: "ledger_accounts"
+    primary_key: []
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: /api/ledger/{{ config['ledger'] }}/accounts
+  - type: DeclarativeStream
+    $parameters:
+      name: "ledger_balances"
+    primary_key: []
+    schema_loader:
+      $ref: "#/definitions/schema_loader"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: /api/ledger/{{ config['ledger'] }}/balances
+  - type: DeclarativeStream
+    $parameters:
+      name: "payment_payments"
+    primary_key: []
+    schema_loader:
+      $ref: "#/definitions/schema_loader"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: /api/payments/payments
+
+check:
+  type: CheckStream
+  stream_names:
+    - "ledger_transactions"
+    - "ledger_accounts"
+    - "ledger_balances"
+    - "payment_payments"

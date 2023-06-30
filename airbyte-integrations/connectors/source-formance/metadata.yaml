@@ -1,0 +1,21 @@
+data:
+  registries:
+    cloud:
+      enabled: false
+    oss:
+      enabled: true
+  connectorSubtype: api
+  connectorType: source
+  definitionId: 2a5fab7a-d7fd-4409-9af6-caba5ddcdfa7
+  dockerImageTag: 0.1.0
+  dockerRepository: airbyte/source-formance
+  githubIssueLabel: source-formance
+  icon: formance.svg
+  license: MIT
+  name: Formance
+  releaseStage: alpha
+  documentationUrl: https://docs.airbyte.com/integrations/sources/formance
+  tags:
+    - language:lowcode
+    - language:python
+metadataSpecVersion: "1.0"
