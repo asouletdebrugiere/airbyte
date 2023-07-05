@@ -1,0 +1,41 @@
+documentationUrl: https://docs.airbyte.com/integrations/sources/formance
+connectionSpecification:
+  "$schema": http://json-schema.org/draft-07/schema#
+  title: Formance Spec
+  type: object
+  properties:
+    client_id:
+      type: string
+      title: Client ID
+      airbyte_secret: true
+      order: 0
+    client_secret:
+      type: string
+      title: Client secret
+      airbyte_secret: true
+      order: 1
+    stack_url:
+      type: string
+      order: 2
+      title: Stack URL
+    ledger:
+      type: string
+      order: 3
+      title: Ledger
+    start_date:
+      type: string
+      order: 4
+      title: Start date
+      pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$
+      description: >-
+        UTC date and time in the format 2017-01-25T00:00:00Z.
+        Any transaction before this date will not be replicated.
+      examples:
+        - "2017-01-25T00:00:00Z"
+      format: date-time
+  required:
+    - client_id
+    - client_secret
+    - stack_url
+    - ledger
+  additionalProperties: true

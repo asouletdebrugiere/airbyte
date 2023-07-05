@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "address": {
+      "type": "string",
+      "example": "users:001"
+    },
+    "asset": {
+      "type": "string",
+      "example": "COIN"
+    },
+    "balance": {
+      "type": "integer",
+      "example": "190"
+    }
+  }
+}
